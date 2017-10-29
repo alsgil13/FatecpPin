@@ -1,0 +1,24 @@
+<html>
+	<body>
+		<table border = "1px">
+			<tr>
+			<td> Id </td>
+			<td> Titulo </td>
+			<td> Texto </td>
+			<td> Data da Postagem </td>
+			</tr>
+			<tr>
+			<% for (var i = 0; i < lista.length; i++) {%>
+				<tr>
+					<td> <%=lista[i].idtb_noticias%></td>
+					<td> <%=lista[i].titulo%></td>
+					<td> <%=lista[i].texto%></td>
+					<td> <%=lista[i].data_postagem%></td>
+
+				</tr>
+			<%}%>
+	
+			</tr>
+		</table>
+	</body> 
+</html> 
