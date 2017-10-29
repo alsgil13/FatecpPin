@@ -29,17 +29,36 @@ module.exports = function(app){
 
 	app.get('/noticias',listarNoticias);
 
-	/*
-	app.get('/produtos/form',function(req,res){
-    	res.render('produtos/form',{errosValidacao:{},produto:{}});
+
+	//em construção
+	app.get('/noticias/:id', function(req,res){
+		var noticia = req.params.id;
+		var connection = app.infra.ConnectionFactory();
+		var NoticiasDAO = new app.infra.NoticiasDAO(connection);
+
+		//chama a lista que está em /infra/produtosBanco.js
+		NoticiasDAO.listaItem(noticia,function(erro,resultados){
+			//retornando Json
+			res.format({
+				html: function(){
+					res.render('noticias/listaItem',{lista:resultados});		
+				},
+				json: function(){
+					res.json(resultados);
+				}
+			});
+
+			
+		});
+
+		connection.end();
+
+		console.log("listando");
+
 	});
-	*/
 
 	app.post('/noticias', function(req,res){
-		
 		var noticia = req.body;
-		
-
 		//Validação
 		var erros = req.validationErrors();
 		if(erros){
@@ -54,10 +73,6 @@ module.exports = function(app){
 			 //passa pro html
 			return;
 		}
-
-
-
-
 		console.log(noticia);
 		var connection = app.infra.ConnectionFactory();
 		var noticiasDAO = new app.infra.NoticiasDAO(connection);
